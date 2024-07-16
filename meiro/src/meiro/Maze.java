@@ -1,14 +1,34 @@
+package meiro;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Random;
 
+
 public class Maze extends MyFrame {
+	maze Maze =new maze();
 	public void run() {
+		addKeyListener(Maze);
+		meiro();	
+	}
+	public void meiro() {
 		int[][] maze = new int[15][15];
 		int x = 0, y = 0;
 		for (x = 0; x < 15; x++) {
 			for (y = 0; y < 15; y++) {
 				if (x == 0 || y == 0 || x == 14 || y == 14) {
 					maze[x][y] = 1;
+					setColor(0,0,0);
 					drawString("■", 40 + (x * 19), 70 + (y * 19), 20);
+					if(x ==1 && y==0) {
+						setColor(0,0,255);
+						drawString("■", 40 + (x * 19), 70 + (y * 19), 20);
+						
+					}else if(x==13&&y==14) {
+						setColor(255,0,0);
+						drawString("■", 40 + (x * 19), 70 + (y * 19), 20);
+						
+					}
 				}
 			}
 		}
@@ -51,19 +71,36 @@ public class Maze extends MyFrame {
 					// 壁じゃない場合のみ倒して終了
 					if (maze[wallX][wallY] != 1) {
 						maze[wallX][wallY] = 1;
+						if(maze[wallX][wallY] == 1) {
+							drawString("■", 40 + (wallX * 19), 70 + (wallY * 19), 20);
+							sleep(1);
+						}
 						break;
 					}
 				}
 			}
 		}
-		for (x = 0; x < 15; x++) {
-			for (y = 0; y < 15; y++) {
-				if (maze[x][y] == 1) {
-					maze[x][y] = 1;
-					drawString("■", 40 + (x * 19), 70 + (y * 19), 20);
-				}
+	}
+	public class maze implements KeyListener{
+			
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO 自動生成されたメソッド・スタブ
+			
+		}
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO 自動生成されたメソッド・スタブ
+			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+				clear();
+				meiro();
 			}
 		}
-		
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO 自動生成されたメソッド・スタブ
+			
+		}
 	}
+	
 }
